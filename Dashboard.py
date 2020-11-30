@@ -19,17 +19,17 @@ def pieChart():
     cur.execute('''SELECT COUNT(size)
                     FROM Fish
                     WHERE size = "large" AND size = "Large w/Fin" AND size = X-Large AND size = "Long" ''')
-    largesize = cur.fetchone()[0]
+    large = cur.fetchone()[0]
 
     cur.execute('''SELECT COUNT(size)
                     FROM Fish
                     WHERE size = "Medium"  AND size = "Medium w/Fin" ''')
-    mediumsize = cur.fetchone()[0]
+    medium = cur.fetchone()[0]
 
     cur.execute('''SELECT COUNT(size)
                     FROM Fish
                     WHERE size = "Small" AND size = "x-small" ''')
-    smallsize = cur.fetchone()[0]
+    small = cur.fetchone()[0]
     labels = 'Large', 'Medium', 'Small'
     sizes = [large, medium, small]
     explode = (0, 0.1, 0)  # only "explode" the 2nd slice 
@@ -79,10 +79,10 @@ def scatterPlot():
     graph5 = fig.add_subplot(235)
     cur.execute('''select NHJan, NHFeb, NHMar, NHApr, NHMay, NHJun, NHJul, NHAug, NHSep, NHOct, NHNov, NHDec, SHJan, SHFeb, SHMar, SHApr, SHMay, SHJun, SHJul, SHAug, SHSep, SHOct, SHNov, SHDec
     from Fish;''')
-    AnimalCrossingDatabase = cur.fetchall()
+    Availible = cur.fetchall()
 
     # Scatter Graph
-    graph5.scatter([x[0] for x in fish], [y[1] for y in fish])
+    graph5.scatter([x[0] for x in Fish], [y[1] for y in Fish])
     graph5.set_title('Times of Availible Fish')
     graph5.set_xlabel('not sure')
     graph5.set_ylabel('not sure')
