@@ -10,19 +10,24 @@ def make_connection():
                       passwd='Password123',
                       port=3306, autocommit=True)
 
-cnx = make_connection()
-cur = cnx.cursor()
-cur.execute('USE animal-crossing-catalog-database')
+def setupDatabase(cur):
+    cur.execute('USE animal_crossing_catalog_database')
+    cur.execute('SELECT size, COUNT(*) FROM Fish GROUP BY size ORDER BY COUNT(*) DESC')
+    sizes=cur.fetchall()
+    fig1=px.pie(values=sizes['COUNT(*)'],names=sizes['size'],title='Sizes of Different Fish in Animal Crossing')
+    with open('p_graph.html', 'a') as f:
+        f.write(fig1.tohtml(full_html=False, include_plotlyjs='cdn'))
 
-cur.execute('SELECT size, COUNT(*) FROM Fish GROUP BY size')
-sizes=cur.fetchall()
+
+
 
 #cur.execute('SELECT FishName, price FROM Fish, order by RAND() LIMIT 10')
 
 #locations=pd.read_sql('SELECT COUNT(FishName), location FROM Fish GROUP BY location',conn)
 #availibility=pd.read_sql('SELECT NHJan, NHFeb, NHMar, NHApr, NHMay, NHJun, NHJul, NHAug, NHSep, NHOct, NHNov, NHDec, SHJan, SHFeb, SHMar, SHApr, SHMay, SHJun, SHJul, SHAug, SHSep, SHOct, SHNov, SHDec FROM Fish WHERE != null',conn)
 
-fig1=px.pie(values=sizes['COUNT(*)'],names=sizes['size'],title='Sizes of Different Fish in Animal Crossing')
 
-with open('p_graph.html', 'a') as f:
-    f.write(fig1.tohtml(full_html=False, include_plotlyjs='cdn'))
+
+connection = make_connection()
+cur = connection.cursor()
+setupDatabase(cur)
