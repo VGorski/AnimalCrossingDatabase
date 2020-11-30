@@ -79,7 +79,7 @@ def scatterPlot():
     graph5 = fig.add_subplot(235)
     cur.execute('''select NHJan, NHFeb, NHMar, NHApr, NHMay, NHJun, NHJul, NHAug, NHSep, NHOct, NHNov, NHDec, SHJan, SHFeb, SHMar, SHApr, SHMay, SHJun, SHJul, SHAug, SHSep, SHOct, SHNov, SHDec
     from Fish;''')
-    pokeData = cur.fetchall()
+    AnimalCrossingDatabase = cur.fetchall()
 
     # Scatter Graph
     graph5.scatter([x[0] for x in pokeData], [y[1] for y in pokeData])
