@@ -19,17 +19,17 @@ def pieChart():
     cur.execute('''SELECT COUNT(size)
                     FROM Fish
                     WHERE size = "large" AND size = "Large w/Fin" AND size = X-Large AND size = "Long" ''')
-    movePhysical = cur.fetchone()[0]
+    largesize = cur.fetchone()[0]
 
     cur.execute('''SELECT COUNT(size)
                     FROM Fish
                     WHERE size = "Medium"  AND size = "Medium w/Fin" ''')
-    moveSpecial = cur.fetchone()[0]
+    mediumsize = cur.fetchone()[0]
 
     cur.execute('''SELECT COUNT(size)
                     FROM Fish
                     WHERE size = "Small" AND size = "x-small" ''')
-    moveStatus = cur.fetchone()[0]
+    smallsize = cur.fetchone()[0]
     labels = 'Large', 'Medium', 'Small'
     sizes = [large, medium, small]
     explode = (0, 0.1, 0)  # only "explode" the 2nd slice 
@@ -48,7 +48,7 @@ def horBarGraph():
     order by RAND()
     LIMIT 10
     ''')
-    versionData = cur.fetchall()
+    fish = cur.fetchall()
 
     # Horizontal Bar Graph
     graph2.set_title('Prices of Fish by Name')
@@ -62,7 +62,7 @@ def lineGraph():
     cur.execute('''select count(FishName), location
     from Fish
     group by location;''')
-    growthRate = cur.fetchall()
+    location = cur.fetchall()
 
     # Line graph
     graph3.plot([x[1] for x in growthRate], [y[0] for y in growthRate])
@@ -82,7 +82,7 @@ def scatterPlot():
     AnimalCrossingDatabase = cur.fetchall()
 
     # Scatter Graph
-    graph5.scatter([x[0] for x in pokeData], [y[1] for y in pokeData])
+    graph5.scatter([x[0] for x in fish], [y[1] for y in fish])
     graph5.set_title('Times of Availible Fish')
     graph5.set_xlabel('not sure')
     graph5.set_ylabel('not sure')
@@ -95,7 +95,6 @@ fig.canvas.set_window_title('Animal Crossing Database Dashboard')
 pieChart()
 horBarGraph()
 lineGraph()
-barGraph()
 scatterPlot()
 plt.tight_layout()
 plt.show()
