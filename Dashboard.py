@@ -5,20 +5,16 @@ import pandas as pd
 import plotly.express as px
 
 # Connect to the database
-def make_connection():
-    return ps.connect(host='animal-crossing-catalog-database.caohgd8s4fpc.us-east-1.rds.amazonaws.com', user='admin',
+conn=ps.connect(host='animal-crossing-catalog-database.caohgd8s4fpc.us-east-1.rds.amazonaws.com', user='admin',
                       passwd='Password123',
-                      port=3306, autocommit=True)
+                      port=3306, db='animal_crossing_catalog_database', autocommit=True)
 
-def setupDatabase(cur):
-    cur.execute('USE animal_crossing_catalog_database')
-    cur.execute('SELECT size, COUNT(*) FROM Fish GROUP BY size ORDER BY COUNT(*) DESC')
-    sizes=cur.fetchall()
-    fig1=px.pie(values=sizes['COUNT(*)'],names=sizes['size'],title='Sizes of Different Fish in Animal Crossing')
-    with open('p_graph.html', 'a') as f:
-        f.write(fig1.tohtml(full_html=False, include_plotlyjs='cdn'))
+df=pd.read_sql('SELECT Shadow, COUNT(*) FROM Fish GROUP BY Shadow ORDER BY COUNT(*) DESC', conn)
+fig1=px.pie(df, values=df['COUNT(*)'],names=df['Shadow'],title='Sizes of Different Fish in Animal Crossing')
+with open('p_graph.html', 'a') as f:
+    f.write(fig1.to_html(full_html=False, include_plotlyjs='cdn'))
 
-
+fig1.show()
 
 
 #cur.execute('SELECT FishName, price FROM Fish, order by RAND() LIMIT 10')
@@ -28,6 +24,4 @@ def setupDatabase(cur):
 
 
 
-connection = make_connection()
-cur = connection.cursor()
-setupDatabase(cur)
+
