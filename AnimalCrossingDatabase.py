@@ -31,6 +31,7 @@ def setupDatabase(data):
         FishName VARCHAR(30) NOT NULL PRIMARY KEY,
         Location VARCHAR(30) NOT NULL,
         Weather VARCHAR(20),
+        Shadow VARCHAR(20),
         NorthernHemisphereJanuary VARCHAR(20) NOT NULL,
         NorthernHemisphereFeburary VARCHAR(20) NOT NULL,
         NorthernHemisphereMarch VARCHAR(20) NOT NULL,
@@ -118,6 +119,8 @@ def insertData(data):
             Name = line.__getitem__(1)
             # Get the location of the fish
             Where = line.__getitem__(3)
+            #
+            Shadow = line.__getitem__(4)
             # Get if fish appears in a certain weather condition
             Rain = line.__getitem__(7)
             # Get if the fish appears in January in the northern hemisphere
@@ -179,8 +182,8 @@ def insertData(data):
 
             # Allow the data to go from the .csv file to the database
             data.execute(
-                'INSERT IGNORE INTO Fish(FishName, Location, Weather, NorthernHemisphereJanuary, NorthernHemisphereFeburary, NorthernHemisphereMarch, NorthernHemisphereApril, NorthernHemisphereMay, NorthernHemisphereJune, NorthernHemisphereJuly, NorthernHemisphereAugust, NorthernHemisphereSeptember, NorthernHemisphereOctober, NorthernHemisphereNovember, NorthernHemisphereDecember, SouthernHemisphereJanuary, SouthernHemisphereFeburary, SouthernHemisphereMarch, SouthernHemisphereApril, SouthernHemisphereMay, SouthernHemisphereJune, SouthernHemisphereJuly, SouthernHemisphereAugust, SouthernHemisphereSeptember, SouthernHemisphereOctober, SouthernHemisphereNovember, SouthernHemisphereDecember,ColorOne, ColorTwo, SellPrice, Size) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                (Name, Where, Rain, NHJan, NHFeb, NHMar, NHApr, NHMay, NHJun, NHJul, NHAug, NHSep, NHOct, NHNov, NHDec, SHJan, SHFeb, SHMar, SHApr, SHMay, SHJun, SHJul, SHAug, SHSep, SHOct, SHNov, SHDec, ColorOne, ColorTwo, Sell, Size))
+                'INSERT IGNORE INTO Fish(FishName, Location, Shadow, Weather, NorthernHemisphereJanuary, NorthernHemisphereFeburary, NorthernHemisphereMarch, NorthernHemisphereApril, NorthernHemisphereMay, NorthernHemisphereJune, NorthernHemisphereJuly, NorthernHemisphereAugust, NorthernHemisphereSeptember, NorthernHemisphereOctober, NorthernHemisphereNovember, NorthernHemisphereDecember, SouthernHemisphereJanuary, SouthernHemisphereFeburary, SouthernHemisphereMarch, SouthernHemisphereApril, SouthernHemisphereMay, SouthernHemisphereJune, SouthernHemisphereJuly, SouthernHemisphereAugust, SouthernHemisphereSeptember, SouthernHemisphereOctober, SouthernHemisphereNovember, SouthernHemisphereDecember,ColorOne, ColorTwo, SellPrice, Size) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                (Name, Where, Shadow, Rain, NHJan, NHFeb, NHMar, NHApr, NHMay, NHJun, NHJul, NHAug, NHSep, NHOct, NHNov, NHDec, SHJan, SHFeb, SHMar, SHApr, SHMay, SHJun, SHJul, SHAug, SHSep, SHOct, SHNov, SHDec, ColorOne, ColorTwo, Sell, Size))
 
     # Insert data into the Bugs table
     with open("data/rf_insects.csv", 'r') as r1:
@@ -288,4 +291,5 @@ data.close()
 connection.commit()
 # Make sure all the data is saved
 connection.close()
+
 
