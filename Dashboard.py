@@ -34,9 +34,6 @@ df4=pd.read_sql('SELECT AnimalName, Availability, Month, Location FROM Availabil
 #fig5=px.scatter(df4,x=df4["Location"],y=df4["Availability"], color="Month")
 fig.add_scatter(x=df4["Location"],y=df4["Availability"],mode='markers',row=2,col=2)
 
-#fig1=px.pie(df, values=df['COUNT(*)'],names=df['Shadow'],title='Sizes of Different Fish in Animal Crossing',labels={'COUNT(*)':'Amount of Fish'})
-fig.add_pie(values=df['COUNT(*)'],name=str(df['Shadow']),row=2, col=3)
-
 
 fig.update_layout(title_font_family="Old Standard TT",height=1000, width=1800, title_text="Animal Crossing Database Dashboard")
 
@@ -49,7 +46,6 @@ fig.show()
 
 #locations=pd.read_sql('SELECT COUNT(FishName), location FROM Fish GROUP BY location',conn)
 #availibility=pd.read_sql('SELECT NHJan, NHFeb, NHMar, NHApr, NHMay, NHJun, NHJul, NHAug, NHSep, NHOct, NHNov, NHDec, SHJan, SHFeb, SHMar, SHApr, SHMay, SHJun, SHJul, SHAug, SHSep, SHOct, SHNov, SHDec FROM Fish WHERE != null',conn)
-
 
 
 
